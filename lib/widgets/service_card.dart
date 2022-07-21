@@ -42,30 +42,30 @@ class _ServiceCardState extends State<ServiceCard> {
               ],color:  Color(0xff161616),
           ),
 
-          margin: EdgeInsets.only(bottom: 50),
-          height: 230,
+          margin: const EdgeInsets.only(bottom: 50),
+          height: 237,
           child: Column(
             children: [
-              Padding(padding: EdgeInsets.only(
+              Padding(padding: const EdgeInsets.only(
                   left: 35, right: 35, bottom: 30, top: 20),
                 child:Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(widget.icon,color: Colors.white,size: 50,),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     Text(
                       widget.header,
                       maxLines: 1,
                       style: GoogleFonts.poppins(fontSize: 19, color:Colors.white,fontWeight: FontWeight.w600),),
-                  SizedBox(height: 8,),
+                  const SizedBox(height: 8,),
                     Text(widget.content,
                       maxLines:4,style: GoogleFonts.poppins(fontSize: 14, color:Colors.white,fontWeight: FontWeight.w400),),
                   ],
                 ),),
-              Spacer(),
-              AnimatedContainer(duration: Duration(microseconds: 600),
-              curve: Curves.easeOut,height: 2,color: !hover?Color(0xff161616):Color(0xff009e66),)
+              const Spacer(),
+              AnimatedContainer(duration: const Duration(microseconds: 600),
+              curve: Curves.easeOut,height: 2,color: !hover?const Color(0xff161616):const Color(0xff009e66),)
             ],
           ),
         )

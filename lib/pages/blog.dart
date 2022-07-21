@@ -50,7 +50,7 @@ class _BlogState extends State<Blog> {
                     ],
                   ),
                   const SizedBox(
-                    height: 80,
+                    height: 70,
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width > 1300
@@ -123,6 +123,12 @@ class _BlogState extends State<Blog> {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(icon: Icon(Icons.close,color: Colors.white,),onPressed: (){
+              Navigator.pop(context);
+            },),
+          )
         ],
       ),
     );

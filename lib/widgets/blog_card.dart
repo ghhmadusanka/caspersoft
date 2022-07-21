@@ -10,7 +10,7 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 15),
       height: 351+10,
       width: 370,
       child: Column(

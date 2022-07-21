@@ -74,6 +74,11 @@ class _ContactState extends State<Contact> {
                 ],
               ),
             ),
+          ),Align(
+            alignment: Alignment.topRight,
+            child: IconButton(icon: Icon(Icons.close,color: Colors.white,),onPressed: (){
+              Navigator.pop(context);
+            },),
           )
         ],
       ),
@@ -224,6 +229,38 @@ class ContactCard extends StatelessWidget {
               ],
             ),
           )
+        ],
+      ),
+
+    );
+  }
+}
+
+class ContactCard2 extends StatelessWidget {
+  final IconData icon;
+  final String header;
+  final String content;
+  const ContactCard2({Key? key, required this.icon, required this.header, required this.content}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(icon,size: 30,color: const Color(0xff009e66),),
+          const SizedBox(width: 14,),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(header,style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),),
+              Text(content,style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.white70),),
+            ],
+          ),
+          const SizedBox(width: 10,),
         ],
       ),
 
