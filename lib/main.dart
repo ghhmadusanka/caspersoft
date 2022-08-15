@@ -2,8 +2,12 @@ import 'package:caspersoft/pages/about.dart';
 import 'package:caspersoft/pages/landing.dart';
 import 'package:caspersoft/router.dart';
 import 'package:flutter/material.dart';
+import 'package:seo_renderer/helpers/renderer_state.dart';
+import 'package:seo_renderer/helpers/robot_detector_vm.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp( const MyApp());
 }
 
@@ -24,11 +28,14 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Color(0xff101010),brightness: Brightness.dark),
-      initialRoute: '/',
-      onGenerateRoute: FRouter.router.generator,
+    return RobotDetector(
+      debug: true,
+      child: MaterialApp(
+        theme: ThemeData(primaryColor: Color(0xff101010),brightness: Brightness.dark),
+        initialRoute: '/',
+        onGenerateRoute: FRouter.router.generator,
+        navigatorObservers: [ seoRouteObserver ],
+      ),
     );
   }
 }

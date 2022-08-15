@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seo_renderer/renderers/image_renderer/image_renderer_vm.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_style.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:video_player/video_player.dart';
 
-import '../widgets/logo.dart';
 import 'about.dart';
 import 'contact.dart';
 
@@ -19,59 +20,55 @@ class Landing extends StatefulWidget {
   State<Landing> createState() => _LandingState();
 }
 
-class _LandingState extends State<Landing> {
-  late VideoPlayerController _controller;
+class _LandingState extends State<Landing> with TickerProviderStateMixin {
+  // late VideoPlayerController _controller;
   double height = 0;
   double width = 0;
 
   List<String> navItems = ['About', 'Blog', 'Contact'];
   List<String> techList = [
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2FGoogle-flutter-logo.png?alt=media&token=e07e2244-3c05-47a2-b82d-3b0641104127',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Fgoogle-cloud-logo-1.png?alt=media&token=7530f87e-e194-474f-a715-f2b659cd35a8',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Flogo-standard.png?alt=media&token=d0c51068-ca4d-4c18-92d6-b2e181387c98',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Fnodejs.png?alt=media&token=f9844fd1-998f-406f-8f9a-510f4c1aa486',
-    //'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Ffile-app-store-ios-custom-size-18.png?alt=media&token=55d3f1bd-c249-4d25-8c98-421260e88571',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Ficon1.png?alt=media&token=4ca521ac-6340-4b70-9350-5b352478a489',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2FAndroid-Logo-Transparent-PNG.png?alt=media&token=f2af394a-8b4e-427f-aaf5-45d1813e6e27',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Ficon8.png?alt=media&token=09d43f92-17b3-4b93-b05a-3f0326f84351',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Fasp-net-core-logo.png?alt=media&token=00b21ebd-b1c1-49be-b3fc-c4a7395b33fa',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Fmeta-logo.png?alt=media&token=14727622-f2e9-464b-877e-97eab84a3dd7',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Fmysql_PNG35.png?alt=media&token=97508897-1a53-4cb8-a2cc-5a120358b394',
-    'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/tech%2Fmicrosoft-sql-server-logo-vector.svg?alt=media&token=cf9a5c0d-8fa6-4fc3-9379-235318c0ab82',
+    'candroid.png',
+    'capple.png',
+    'casp.png',
+    'cfirebase.png',
+    'cflutter.png',
+    'cgoole.png',
+    'cmeta.png',
+    'cml.png',
+    'cnode.png',
+    'creact.png'
   ];
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
-      'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/PoorSpottedDuiker%20(1).mp4?alt=media&token=ad2f3e74-75d8-4671-866f-a77ec06c5d45',
-    );
+    // _controller = VideoPlayerController.asset('assets/video.mp4');
   }
 
-  Future<bool?> started() async {
-    if(!_controller.value.isInitialized) {
-      await _controller.initialize();
-      _controller.setVolume(0);
-      await _controller.play();
-      await _controller.setLooping(true);
-    }
-    return _controller.value.isInitialized;
-  }
+  // Future<bool?> started() async {
+  //   if(!_controller.value.isInitialized) {
+  //     await _controller.initialize();
+  //     _controller.setVolume(0);
+  //     await _controller.play();
+  //     await _controller.setLooping(true);
+  //   }
+  //   return _controller.value.isInitialized;
+  // }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    print(_controller.value.size);
+    // print(_controller.value.size);
     return Scaffold(
       backgroundColor: const Color(0xff101010),
       body: Stack(
         children: [
-          buildBackgrounVideo(),
+          // buildBackgrounVideo(),
           Container(
             width: double.infinity,
             height: double.infinity,
@@ -102,27 +99,30 @@ class _LandingState extends State<Landing> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
-                      child: AutoSizeText(
-                        "CasperSoft",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            fontSize: 45,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
+                      child: ImageRenderer(
+                          alt: "CasperSoft | Software company in Sri Lanka",
+                          child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/lg.png?alt=media&token=de4aa1c8-8fea-403c-8262-f573b68822fe',
+                            width: 200,
+                            height: 200,
+                          )),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
-                      child: AutoSizeText(
-                        "Enterprise . Mobility . Cloud",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                            fontSize: 40,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white70),
+                      child: TextRenderer(
+                        text: "Enterprise . Mobility . Cloud",
+                        style: TextRendererStyle.header2,
+                        child: AutoSizeText(
+                          "Enterprise . Mobility . Cloud",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white70),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -131,11 +131,15 @@ class _LandingState extends State<Landing> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Apps for ",
-                            style: GoogleFonts.poppins(
-                                fontSize: 23,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white70)),
+                        TextRenderer(
+                          text:
+                              'applications for Established and startups business',
+                          child: Text("Apps for ",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white70)),
+                        ),
                         const MyBuildAnimatedText(),
                       ],
                     ),
@@ -172,20 +176,22 @@ class _LandingState extends State<Landing> {
                               const SizedBox(
                                 width: 6,
                               ),
-                              Text("ලංකා",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w100,
-                                      color: Colors.white)),
+                              TextRenderer(
+                                child: Text("ලංකා",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w100,
+                                        color: Colors.white)),
+                              ),
                             ],
                           ),
                         ),
                       ),
                       //return Image.network(color:Colors.white70,techList[index],fit: BoxFit.scaleDown,);
-                      // MediaQuery.of(context).size.width > 990
-                      //     ? buildTechno()
-                      //     : const Spacer(),
-                      const Spacer(),
+                      MediaQuery.of(context).size.width > 990
+                          ? buildTechno2()
+                          : const Spacer(),
+                      //const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(right: 25),
                         child: Column(
@@ -248,9 +254,9 @@ class _LandingState extends State<Landing> {
               ],
             ),
           ),
-          const Divider(
-            thickness: 2,
-            color: Color(0xff009e66),
+          Container(
+            height: 2,
+            color: Color(0xff1a98ee),
           ),
           Container(
             color: Colors.black54,
@@ -259,13 +265,13 @@ class _LandingState extends State<Landing> {
                 const SizedBox(
                   height: 20,
                 ),
-                // MediaQuery.of(context).size.width < 990
-                //     ? Row(
-                //         children: [
-                //           buildTechno(),
-                //         ],
-                //       )
-                //     : Container(),
+                MediaQuery.of(context).size.width < 990
+                    ? Row(
+                        children: [
+                          buildTechno2(),
+                        ],
+                      )
+                    : Container(),
                 const Services(
                   isAbout: false,
                 ),
@@ -290,14 +296,14 @@ class _LandingState extends State<Landing> {
                           content: 'Gampaha'),
                     ),
                     BootstrapCol(
-                      sizes: 'col-sm-6 col-md-6 col-lg-3 col-xs-12',
+                      sizes: 'col-sm-12 col-md-6 col-lg-3 col-xs-12',
                       child: const ContactCard2(
                           icon: Icons.call,
                           header: 'Call Us',
                           content: '770072209 / 784973126'),
                     ),
                     BootstrapCol(
-                      sizes: 'col-sm-6 col-md-6 col-lg-3 col-xs-12',
+                      sizes: 'col-sm-12 col-md-6 col-lg-3 col-xs-12',
                       child: const ContactCard2(
                           icon: Icons.alternate_email,
                           header: 'Email Us',
@@ -321,13 +327,13 @@ class _LandingState extends State<Landing> {
               height: 80,
               width: double.infinity,
               child: CarouselSlider.builder(
-                itemCount: techList.length - 1,
+                itemCount: techList.length,
                 itemBuilder:
                     (BuildContext context, int itemIndex, int pageViewIndex) {
-                  return Image.network(
+                  return Image.asset(
                     height: 80,
                     width: 80,
-                    techList[itemIndex],
+                    'assets/${techList[itemIndex]}',
                     fit: BoxFit.scaleDown,
                     color: Colors.white70,
                   );
@@ -359,10 +365,13 @@ class _LandingState extends State<Landing> {
       padding: const EdgeInsets.only(top: 20),
       child: Row(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 25),
-            child: Logo(
-              fontsize: 31,
+            child: Image.network(
+              'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/lg%20copy.png?alt=media&token=be0a7fb5-6a5b-4216-a910-0178b8524ae7',
+              height: 40,
+              width: 40,
+              color: Colors.white70,
             ),
           ),
           const Spacer(),
@@ -383,30 +392,30 @@ class _LandingState extends State<Landing> {
     );
   }
 
-  FutureBuilder<bool?> buildBackgrounVideo() {
-    return FutureBuilder<bool?>(
-        future: started(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-          if (snapshot.data!) {
-            return SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.cover,
-                child: SizedBox(
-                  width: _controller.value.size.width,
-                  height: _controller.value.size.height,
-                  child: VideoPlayer(_controller),
-                ),
-              ),
-            );
-          } else {
-            return Container();
-          }
-    }else {
-            return Container();
-          }
-        });
-  }
+// FutureBuilder<bool?> buildBackgrounVideo() {
+//   return FutureBuilder<bool?>(
+//       future: started(),
+//       builder: (context, snapshot) {
+//         if(snapshot.hasData){
+//         if (snapshot.data!) {
+//           return SizedBox.expand(
+//             child: FittedBox(
+//               fit: BoxFit.cover,
+//               child: SizedBox(
+//                 width: _controller.value.size.width,
+//                 height: _controller.value.size.height,
+//                 child: VideoPlayer(_controller),
+//               ),
+//             ),
+//           );
+//         } else {
+//           return Container();
+//         }
+//   }else {
+//           return Container();
+//         }
+//       });
+// }
 }
 
 class NavButton extends StatefulWidget {
@@ -424,7 +433,7 @@ class _NavButtonState extends State<NavButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: const Color(0xff009e66),
+      splashColor: const Color(0xff1a98ee),
       onTap: widget.function,
       child: Padding(
         padding: const EdgeInsets.only(right: 25),

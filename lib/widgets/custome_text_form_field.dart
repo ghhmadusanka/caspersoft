@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTextFormField extends StatefulWidget {
   final String hint;
   final int? max;
+  final TextEditingController controller;
 
-  const CustomTextFormField({Key? key, required this.hint, this.max})
+  const CustomTextFormField({Key? key, required this.hint, this.max, required this.controller})
       : super(key: key);
 
   @override
@@ -16,6 +17,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       style: GoogleFonts.poppins(
           fontSize: 14,
           color: Colors.white
@@ -26,7 +28,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           filled: true,
           fillColor: const Color(0xff1c1c1c),
           focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.tealAccent)),
+              borderSide: BorderSide(color: Color(0xff1a98ee))),
           hintText: widget.hint,
           hintStyle: GoogleFonts.poppins(
               fontSize: 20.0,

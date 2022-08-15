@@ -1,5 +1,4 @@
 import 'package:caspersoft/widgets/blog_card.dart';
-import 'package:caspersoft/widgets/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,7 +37,11 @@ class _BlogState extends State<Blog> {
                   Row(
                     children: [
                       const Spacer(),
-                      const Logo(fontsize: 40,),
+                       Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/lg%20copy.png?alt=media&token=be0a7fb5-6a5b-4216-a910-0178b8524ae7',
+                        height: 100,
+                        width: 100, color: Colors.white,
+                      ),
                       Text(
                         'Blog',
                         style: GoogleFonts.poppins(
@@ -86,7 +89,7 @@ class _BlogState extends State<Blog> {
                         ),
                         buildBootstrapCol(
                           imageUrl:
-                              'https://sjorshooijen.io/wp-content/uploads/2016/12/sjorshooijen-firebase.jpg',
+                              'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/sjorshooijen-firebase.jpeg?alt=media&token=f135baf3-bacf-40ca-b90b-04404270307e',
                           header:
                               "What Is Google Firebase and Why Should You Use It?",
                           content:

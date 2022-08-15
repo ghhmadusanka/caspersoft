@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seo_renderer/renderers/image_renderer/image_renderer_vm.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 
 class About extends StatefulWidget {
@@ -53,14 +55,17 @@ class AboutBody extends StatelessWidget {
           ),
           SizedBox(
             width: 500,
-            child: AutoSizeText(
-              textAlign: TextAlign.center,
-              'Leverage our expertise in custom software development to unlock your true potential and gear up your digital transformation.',
-              maxLines: 3,
-              style: GoogleFonts.poppins(
-                  fontSize: isAbout?15 : 18,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w200),
+            child: TextRenderer(
+              text:'Leverage our expertise in custom software development to unlock your true potential and gear up your digital transformation.',
+              child: AutoSizeText(
+                textAlign: TextAlign.center,
+                'Leverage our expertise in custom software development to unlock your true potential and gear up your digital transformation.',
+                maxLines: 3,
+                style: GoogleFonts.poppins(
+                    fontSize: isAbout?15 : 18,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w200),
+              ),
             ),
           ),
           const SizedBox(
@@ -90,10 +95,13 @@ class AboutBody extends StatelessWidget {
                   height: MediaQuery.of(context).size.width < 992
                       ? MediaQuery.of(context).size.width * 0.41
                       : 380,
-                  child: const Image(
-                    fit: BoxFit.fitWidth,
-                    image: NetworkImage(
-                        'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/mvp.webp?alt=media&token=8d458cbb-8795-43b5-a84f-a3cf2197342b'),
+                  child: const ImageRenderer(
+                    alt: "caspersoft",
+                    child: Image(
+                      fit: BoxFit.fitWidth,
+                      image: NetworkImage(
+                          'https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/mvp.webp?alt=media&token=8d458cbb-8795-43b5-a84f-a3cf2197342b'),
+                    ),
                   )),
               BootstrapRow(
                   height: MediaQuery.of(context).size.width < 992
@@ -108,13 +116,20 @@ class AboutBody extends StatelessWidget {
                       fit: FlexFit.tight,
                         sizes: 'col-md-12 col-lg-4 col-sm-12',
                         child: CircleAvatar(
+                          backgroundColor:Colors.white,
                           radius: MediaQuery.of(context).size.width <
                                   992
                               ? MediaQuery.of(context).size.width * 0.2
                               : 180,
-                          child: const ClipOval(
-                            child: Image(fit: BoxFit.cover,image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/caspersoft%20logo%202.0.jpg?alt=media&token=36692d09-0ee5-4544-a3da-90fff639b8f6'
-                            ),),
+                          child:  const ClipOval(
+                            child: ImageRenderer(
+                              alt: 'Caspersoft Logo',
+                              child: Padding(
+                                padding: EdgeInsets.all(18.0),
+                                child: Image(fit: BoxFit.cover,image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/caspersoft.appspot.com/o/lg.png?alt=media&token=de4aa1c8-8fea-403c-8262-f573b68822fe'
+                                ),),
+                              ),
+                            ),
                           ),
                         )),
                     BootstrapCol(
@@ -131,48 +146,55 @@ class AboutBody extends StatelessWidget {
                                   : const SizedBox(
                                       height: 35,
                                     ),
-                              Text(
-                                "What is CasperSoft?",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 28,
-                                    color: MediaQuery.of(context)
-                                                .size
-                                                .width <
-                                            992
-                                        ? const Color(0xff009e66)
-                                        : const Color(0xff00d58a),
-                                    fontWeight: FontWeight.w600),
+                              TextRenderer(
+                                child: Text(
+                                  "What is CasperSoft?",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 28,
+                                      color: MediaQuery.of(context)
+                                                  .size
+                                                  .width <
+                                              992
+                                          ? const Color(0xff1a98ee)
+                                          : const Color(0xff39a5ff),
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                               const SizedBox(
                                 height: 6,
                               ),
-                              AutoSizeText(
-                                'We collaborate with prospective companies to create unique enterprise apps and mobile platforms that may guarantee success in the constantly evolving tech industry. We use our in-depth understanding of the sector and technological prowess to help businesses make the most of emerging technology from conception to creation.',
-                                maxLines: 4,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    color: MediaQuery.of(context)
-                                                .size
-                                                .width <
-                                            992
-                                        ? Colors.white70
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w300),
+                              TextRenderer(
+                                text: 'We collaborate with prospective companies to create unique enterprise apps and mobile platforms that may guarantee success in the constantly evolving tech industry. We use our in-depth understanding of the sector and technological prowess to help businesses make the most of emerging technology from conception to creation.',
+                                child: AutoSizeText(
+                                  'We collaborate with prospective companies to create unique enterprise apps and mobile platforms that may guarantee success in the constantly evolving tech industry. We use our in-depth understanding of the sector and technological prowess to help businesses make the most of emerging technology from conception to creation.',
+                                  maxLines: 4,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      color: MediaQuery.of(context)
+                                                  .size
+                                                  .width <
+                                              992
+                                          ? Colors.white70
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w300),
+                                ),
                               ),
                               const SizedBox(
                                 height: 30,
                               ),
-                              Text(
-                                "What We Actually Do?",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 28,
-                                    color: MediaQuery.of(context)
-                                                .size
-                                                .width <
-                                            992
-                                        ? const Color(0xff009e66)
-                                        : const Color(0xff00d58a),
-                                    fontWeight: FontWeight.w600),
+                              TextRenderer(
+                                child: Text(
+                                  "What We Actually Do?",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 28,
+                                      color: MediaQuery.of(context)
+                                                  .size
+                                                  .width <
+                                              992
+                                          ? const Color(0xff1a98ee)
+                                          : const Color(0xff39a5ff),
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                               const SizedBox(
                                 height: 6,
@@ -181,18 +203,21 @@ class AboutBody extends StatelessWidget {
                               const SizedBox(
                                 height: 6,
                               ),
-                              AutoSizeText(
-                                'As a Flutter app development company, we specialize in solutions for iOS and Android applications. New powerful cross-platform native-like mobile apps are time and cost efficient solutions to help your business grow.',
-                                maxLines: 4,
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    color: MediaQuery.of(context)
-                                                .size
-                                                .width <
-                                            992
-                                        ? Colors.white70
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w300),
+                              TextRenderer(
+                                text: 'As a Flutter app development company, we specialize in solutions for iOS and Android applications. New powerful cross-platform native-like mobile apps are time and cost efficient solutions to help your business grow.',
+                                child: AutoSizeText(
+                                  'As a Flutter app development company, we specialize in solutions for iOS and Android applications. New powerful cross-platform native-like mobile apps are time and cost efficient solutions to help your business grow.',
+                                  maxLines: 4,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      color: MediaQuery.of(context)
+                                                  .size
+                                                  .width <
+                                              992
+                                          ? Colors.white70
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w300),
+                                ),
                               ),
                             ],
                           ),
@@ -314,7 +339,7 @@ class MyBuildAnimatedText extends StatelessWidget {
       // it applies same style to all the widgets under it
       style: GoogleFonts.poppins(
           fontSize: 20,
-          color: const Color(0xffbea500),
+          color: const Color(0xff0bc4c0),
           fontWeight: FontWeight.w500),
       maxLines: 1,
       child: const AnimatedText(),

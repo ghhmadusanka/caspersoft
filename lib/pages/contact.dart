@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/custome_text_form_field.dart';
@@ -12,7 +14,6 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,45 +48,56 @@ class _ContactState extends State<Contact> {
                     "CasperSoft",
                     style: GoogleFonts.poppins(
                         fontSize: 28,
-                        color: const Color(0xff009e66),
+                        color: const Color(0xff0bc4c0),
                         fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(
                     height: 80,
                   ),
-                  MediaQuery.of(context).size.width > 1000?Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      MessageMe(),
-                      SizedBox(width: 50,),
-                      ContactDetails()
-                    ],
-                  ):
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      MessageMe(),
-                      SizedBox(width: 40,),
-                      ContactDetails()
-                    ],
-                  ),
+                  MediaQuery.of(context).size.width > 1000
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            MessageMe(),
+                            SizedBox(
+                              width: 50,
+                            ),
+                            ContactDetails()
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            MessageMe(),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            ContactDetails()
+                          ],
+                        ),
                 ],
               ),
             ),
-          ),Align(
+          ),
+          Align(
             alignment: Alignment.topRight,
-            child: IconButton(icon: Icon(Icons.close,color: Colors.white,),onPressed: (){
-              Navigator.pop(context);
-            },),
+            child: IconButton(
+              icon: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           )
         ],
       ),
     );
   }
 }
-
 
 class MessageMe extends StatefulWidget {
   const MessageMe({Key? key}) : super(key: key);
@@ -95,6 +107,11 @@ class MessageMe extends StatefulWidget {
 }
 
 class _MessageMeState extends State<MessageMe> {
+  TextEditingController name = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController msg = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -114,37 +131,60 @@ class _MessageMeState extends State<MessageMe> {
             height: 25,
           ),
           Row(
-            children: const [
-              Expanded(child: CustomTextFormField(hint: 'Name')),
+            children: [
+              Expanded(
+                  child: CustomTextFormField(
+                hint: 'Name',
+                controller: name,
+              )),
               SizedBox(
                 width: 25,
               ),
-              Expanded(child: CustomTextFormField(hint: 'Email')),
+              Expanded(
+                  child: CustomTextFormField(
+                hint: 'Phone No',
+                controller: phone,
+              )),
             ],
           ),
           const SizedBox(
             height: 25,
           ),
-          const SizedBox(
+          SizedBox(
               height: 50,
               child: CustomTextFormField(
-                hint: 'Subject',
+                hint: 'Email',
                 max: 20,
+                controller: email,
               )),
           const SizedBox(
             height: 25,
           ),
-          const SizedBox(
+          SizedBox(
             height: 200,
             child: CustomTextFormField(
               hint: "Message",
               max: 25,
+              controller: msg,
             ),
           ),
           const SizedBox(
             height: 25,
           ),
-          CustomButton(lable: 'Send Message', callback: () {})
+          CustomButton(
+              lable: 'Send Message',
+              callback: () async {
+                //TODO
+                var response = await http.post(
+                    Uri.parse(
+                        'https://us-central1-tb-lanka.cloudfunctions.net/app/sendemail'),
+                    headers: <String, String>{
+                      'Content-Type': 'text/plain; charset=UTF-8',
+                    },
+                    body:
+                        "Name : ${name.text} \n Phone : ${phone.text}\nEmail : ${email.text}\n\n${msg.text}");
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Message sent!")));
+              })
         ],
       ),
     );
@@ -166,9 +206,7 @@ class _ContactDetailsState extends State<ContactDetails> {
         width: MediaQuery.of(context).size.width > 1000
             ? MediaQuery.of(context).size.width * 0.4
             : MediaQuery.of(context).size.width * 0.75,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
             'Contact Info',
             style: GoogleFonts.poppins(
@@ -180,14 +218,33 @@ class _ContactDetailsState extends State<ContactDetails> {
           Text(
             'We are prepared to provide an amazing solution whenever the proper challenge arises. Contact us whenever you want!',
             style: GoogleFonts.poppins(
-                fontSize: 15, color: Colors.white70, fontWeight: FontWeight.w400),
+                fontSize: 15,
+                color: Colors.white70,
+                fontWeight: FontWeight.w400),
           ),
-              const SizedBox(height: 15,),
-              const ContactCard(icon: Icons.store_mall_directory_outlined, header: '<C/S>', content: 'CasperSoft'),
-              const ContactCard(icon: Icons.person_pin_rounded, header: 'Proprietor', content: 'G H H Madusanka'),
-              const ContactCard(icon: Icons.location_on_rounded, header: 'Location', content: 'Gampaha'),
-              const ContactCard(icon: Icons.call, header: 'Call Us', content: '770072209 / 784973126'),
-              const ContactCard(icon: Icons.alternate_email, header: 'Email Us', content: 'hashan@caspersoft.info'),
+          const SizedBox(
+            height: 15,
+          ),
+          const ContactCard(
+              icon: Icons.store_mall_directory_outlined,
+              header: '<C/S>',
+              content: 'CasperSoft'),
+          const ContactCard(
+              icon: Icons.person_pin_rounded,
+              header: 'Proprietor',
+              content: 'G H H Madusanka'),
+          const ContactCard(
+              icon: Icons.location_on_rounded,
+              header: 'Location',
+              content: 'Gampaha'),
+          const ContactCard(
+              icon: Icons.call,
+              header: 'Call Us',
+              content: '770072209 / 784973126'),
+          const ContactCard(
+              icon: Icons.alternate_email,
+              header: 'Email Us',
+              content: 'hashan@caspersoft.info'),
         ]));
   }
 }
@@ -196,42 +253,67 @@ class ContactCard extends StatelessWidget {
   final IconData icon;
   final String header;
   final String content;
-  const ContactCard({Key? key, required this.icon, required this.header, required this.content}) : super(key: key);
+
+  const ContactCard(
+      {Key? key,
+      required this.icon,
+      required this.header,
+      required this.content})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 75,
       width: MediaQuery.of(context).size.width > 1000
-        ? MediaQuery.of(context).size.width * 0.4
-        : MediaQuery.of(context).size.width * 0.75,
+          ? MediaQuery.of(context).size.width * 0.4
+          : MediaQuery.of(context).size.width * 0.75,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon,size: 35,color: const Color(0xff009e66),),
-          const SizedBox(width: 20,),
+          Icon(
+            icon,
+            size: 35,
+            color: const Color(0xff1a98ee),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
           Container(
             width: 3,
-            color: const Color(0xff009e66),
+            color: const Color(0xff1a98ee),
           ),
-          const SizedBox(width: 25,),
+          const SizedBox(
+            width: 25,
+          ),
           SizedBox(
             width: MediaQuery.of(context).size.width > 1000
                 ? MediaQuery.of(context).size.width * 0.2
-                : MediaQuery.of(context).size.width * 0.5-8,
+                : MediaQuery.of(context).size.width * 0.5 - 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(header,style: GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w700,color: Colors.white),),
-                Text(content,style: GoogleFonts.poppins(fontSize: 13,fontWeight: FontWeight.w400,color: Colors.white70),),
+                Text(
+                  header,
+                  style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white),
+                ),
+                Text(
+                  content,
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white70),
+                ),
               ],
             ),
           )
         ],
       ),
-
     );
   }
 }
@@ -240,7 +322,13 @@ class ContactCard2 extends StatelessWidget {
   final IconData icon;
   final String header;
   final String content;
-  const ContactCard2({Key? key, required this.icon, required this.header, required this.content}) : super(key: key);
+
+  const ContactCard2(
+      {Key? key,
+      required this.icon,
+      required this.header,
+      required this.content})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -250,21 +338,42 @@ class ContactCard2 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon,size: 30,color: const Color(0xff009e66),),
-          const SizedBox(width: 14,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(header,style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w700,color: Colors.white),),
-              Text(content,style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.white70),),
-            ],
+          Icon(
+            icon,
+            size: 30,
+            color: const Color(0xff1a98ee),
           ),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 14,
+          ),
+          TextRenderer(
+            text: '$header:$content',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  header,
+                  style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white),
+                ),
+                Text(
+                  content,
+                  style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white70),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
         ],
       ),
-
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 class BlogCard extends StatelessWidget {
   final String imageUrl;
@@ -10,7 +11,7 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 20),
       height: 351+10,
       width: 370,
       child: Column(
@@ -31,16 +32,20 @@ class BlogCard extends StatelessWidget {
           const SizedBox(height: 12,),
           SizedBox(
             width: 370,
-              child: Text(
-                header,overflow: TextOverflow.fade,
-                maxLines: 2,style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 16),)),
+              child: TextRenderer(
+                child: Text(
+                  header,overflow: TextOverflow.ellipsis,
+                  maxLines: 2,style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 16),),
+              )),
           const SizedBox(height: 8,),
           SizedBox(
             width: 370,
-              child: Text(content,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 4,
-                style: GoogleFonts.poppins(height: 1.6,fontWeight: FontWeight.w400,color: Colors.white70,fontSize: 12),)),
+              child: TextRenderer(
+                child: Text(content,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                  style: GoogleFonts.poppins(height: 1.6,fontWeight: FontWeight.w400,color: Colors.white70,fontSize: 12),),
+              )),
         ],
       ),
     );

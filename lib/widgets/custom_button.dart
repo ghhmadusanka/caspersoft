@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
           width: height??200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: const Color(0xff009e66),
+            color: const Color(0xff1a98ee),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

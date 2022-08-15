@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 class ServiceCard extends StatefulWidget {
   final IconData icon;
@@ -54,18 +55,22 @@ class _ServiceCardState extends State<ServiceCard> {
                   children: [
                     Icon(widget.icon,color: Colors.white,size: 50,),
                     const SizedBox(height: 15,),
-                    Text(
-                      widget.header,
-                      maxLines: 1,
-                      style: GoogleFonts.poppins(fontSize: 19, color:Colors.white,fontWeight: FontWeight.w600),),
+                    TextRenderer(
+                      child: Text(
+                        widget.header,
+                        maxLines: 1,
+                        style: GoogleFonts.poppins(fontSize: 19, color:Colors.white,fontWeight: FontWeight.w600),),
+                    ),
                   const SizedBox(height: 8,),
-                    Text(widget.content,
-                      maxLines:4,style: GoogleFonts.poppins(fontSize: 14, color:Colors.white,fontWeight: FontWeight.w400),),
+                    TextRenderer(
+                      child: Text(widget.content,
+                        maxLines:4,style: GoogleFonts.poppins(fontSize: 14, color:Colors.white,fontWeight: FontWeight.w400),),
+                    ),
                   ],
                 ),),
               const Spacer(),
               AnimatedContainer(duration: const Duration(microseconds: 600),
-              curve: Curves.easeOut,height: 2,color: !hover?const Color(0xff161616):const Color(0xff009e66),)
+              curve: Curves.easeOut,height: 2,color: !hover?const Color(0xff161616):const Color(0xff1a98ee),)
             ],
           ),
         )
